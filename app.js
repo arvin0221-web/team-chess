@@ -6,6 +6,7 @@ const firebaseConfig = {
   messagingSenderId: "562832397441",
   appId: "1:562832397441:web:f98d61763cb8b1ac19e980",
   measurementId: "G-D9340S9MH1"
+  databaseURL:"https://team-chess-2989a-default-rtdb.firebaseio.com"
 };
 
 firebase.initializeApp(firebaseConfig);
