@@ -53,6 +53,7 @@ function listenRoom() {
     if (!data) return;
 
     chess.load(data.fen);
+    board.position(data.fen);
     lastWhiteMovedPiece = data.lastWhiteMovedPiece;
 
     document.getElementById("turnDisplay").innerText =
