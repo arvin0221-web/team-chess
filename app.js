@@ -1,11 +1,11 @@
 const firebaseConfig = {
-  apiKey: "貼你的",
-  authDomain: "貼你的",
-  databaseURL: "貼你的",
-  projectId: "貼你的",
-  storageBucket: "貼你的",
-  messagingSenderId: "貼你的",
-  appId: "貼你的"
+  apiKey: "AIzaSyDzIXHlM0TyySFC7qNOsvFaD1X7uk58HXs",
+  authDomain: "team-chess-2989a.firebaseapp.com",
+  projectId: "team-chess-2989a",
+  storageBucket: "team-chess-2989a.firebasestorage.app",
+  messagingSenderId: "562832397441",
+  appId: "1:562832397441:web:f98d61763cb8b1ac19e980",
+  measurementId: "G-D9340S9MH1"
 };
 
 firebase.initializeApp(firebaseConfig);
