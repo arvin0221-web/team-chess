@@ -1,0 +1,9 @@
+body {
+  font-family: Arial;
+  text-align: center;
+}
+
+#board {
+  width: 320px;
+  margin: auto;
+}
