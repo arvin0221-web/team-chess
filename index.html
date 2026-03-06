@@ -1,30 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Team Chess</title>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
-  <link rel="stylesheet"
- href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard.min.css"/>
+<meta charset="UTF-8">
+<title>自肥西洋棋</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard.min.js"></script>
-  
+<style>
+body{
+font-family:sans-serif;
+text-align:center;
+background:#222;
+color:white;
+}
+
+#board{
+width:480px;
+height:480px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(8,1fr);
+}
+
+.square{
+width:60px;
+height:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+cursor:pointer;
+}
+
+.white{background:#eee;color:black}
+.black{background:#666}
+
+button{padding:10px;margin:5px}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
 </head>
+
 <body>
 
-<h2>1v2 Team Chess</h2>
+<h1>西西西洋棋</h1>
 
-<input id="roomInput" placeholder="房間代碼">
-<button onclick="createRoom()">建立房間</button>
+<div id="menu">
+
+<button onclick="createRoom()">創建房間</button>
+
+<input id="roomInput" placeholder="房間ID">
+
 <button onclick="joinRoom()">加入房間</button>
 
-<div id="board"></div>
-  <div id="board" style="width: 350px; margin: auto;"></div>
-<p id="turnDisplay"></p>
+<br><br>
 
-<script src="app.js"></script>
+<button onclick="chooseColor('white')">我要白子</button>
+<button onclick="chooseColor('black')">我要黑子</button>
+
+<p id="status"></p>
+
+</div>
+
+<div id="board"></div>
+
+<script src="game.js"></script>
+
 </body>
 </html>
