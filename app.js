@@ -105,39 +105,48 @@ function makeMove(from, to) {
     }
   });
 }
-board = Chessboard('board', {
-  draggable: true,
-  position: 'start',
-  onDrop: function (source, target) {
+window.onload = function() {
 
-    db.ref("rooms/" + roomId).once("value").then(snapshot => {
-      let data = snapshot.val();
-      let currentTurn = turnOrder[data.turnIndex];
+  board = Chessboard('board', {
+    draggable: true,
+    position: 'start',
+    onDrop: function (source, target) {
 
-      if (currentTurn !== role) return 'snapback';
+      if (!roomId) return 'snapback';
 
-      if ((role === "whiteA" || role === "whiteB") &&
-          source === data.lastWhiteMovedPiece) {
-        alert("白方不能連續動同一隻棋");
-        return 'snapback';
-      }
+      db.ref("rooms/" + roomId).once("value").then(snapshot => {
+        let data = snapshot.val();
+        if (!data) return 'snapback';
 
-      let move = chess.move({
-        from: source,
-        to: target,
-        promotion: 'q'
+        let currentTurn = turnOrder[data.turnIndex];
+
+        if (currentTurn !== role) return 'snapback';
+
+        if ((role === "whiteA" || role === "whiteB") &&
+            source === data.lastWhiteMovedPiece) {
+          alert("白方不能連續動同一隻棋");
+          return 'snapback';
+        }
+
+        let move = chess.move({
+          from: source,
+          to: target,
+          promotion: 'q'
+        });
+
+        if (move === null) return 'snapback';
+
+        let newTurnIndex = (data.turnIndex + 1) % 3;
+
+        db.ref("rooms/" + roomId).update({
+          fen: chess.fen(),
+          turnIndex: newTurnIndex,
+          lastWhiteMovedPiece:
+            role.startsWith("white") ? source : null
+        });
       });
 
-      if (move === null) return 'snapback';
+    }
+  });
 
-      let newTurnIndex = (data.turnIndex + 1) % 3;
-
-      db.ref("rooms/" + roomId).update({
-        fen: chess.fen(),
-        turnIndex: newTurnIndex,
-        lastWhiteMovedPiece:
-          role.startsWith("white") ? source : null
-      });
-    });
-  }
-});
+};
