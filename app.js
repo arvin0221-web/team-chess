@@ -54,13 +54,33 @@ function createRoom() {
 function joinRoom() {
   roomId = document.getElementById("roomInput").value;
 
-  db.ref("rooms/" + roomId + "/players").once("value").then(snapshot => {
-    let players = snapshot.val() || {};
-    if (!players.whiteA) role = "whiteA";
-    else role = "whiteB";
+  if (!roomId) {
+    alert("請輸入房間代碼");
+    return;
+  }
 
-    db.ref("rooms/" + roomId + "/players/" + role).set(true);
-    listenRoom();
+  db.ref("rooms/" + roomId).once("value").then(snapshot => {
+
+    if (!snapshot.exists()) {
+      alert("房間不存在");
+      return;
+    }
+
+    let data = snapshot.val();
+    let players = data.players || {};
+
+    if (!players.whiteA) role = "whiteA";
+    else if (!players.whiteB) role = "whiteB";
+    else {
+      alert("房間已滿");
+      return;
+    }
+
+    db.ref("rooms/" + roomId + "/players/" + role).set(true)
+      .then(() => {
+        alert("加入成功，你是 " + role);
+        listenRoom();
+      });
   });
 }
 
