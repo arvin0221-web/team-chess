@@ -25,11 +25,28 @@ function createRoom() {
   roomId = document.getElementById("roomInput").value;
   role = "black";
 
+  function createRoom() {
+  roomId = document.getElementById("roomInput").value;
+
+  if (!roomId) {
+    alert("請輸入房間代碼");
+    return;
+  }
+
+  role = "black";
+
   db.ref("rooms/" + roomId).set({
     fen: chess.fen(),
     turnIndex: 0,
-    lastWhiteMovedPiece: null
+    lastWhiteMovedPiece: null,
+    players: {
+      black: true
+    }
+  }).then(() => {
+    alert("房間建立成功，你是 black");
+    listenRoom();
   });
+  }
 
   listenRoom();
 }
