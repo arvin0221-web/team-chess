@@ -3,6 +3,20 @@
 function movePiece(x1 , y1 , x2 , y2){
 
 var piece = boardState[y1][x1];
+var target = boardState[y2][x2];
+
+// ❌ 禁止吃自己
+if(target != ""){
+
+if(playerColor == "white" && target === target.toUpperCase()){
+return;
+}
+
+if(playerColor == "black" && target === target.toLowerCase()){
+return;
+}
+
+}
 
 if(piece == ""){
 
