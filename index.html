@@ -1,40 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
-<title>自肥西洋棋</title>
 
-<style>
-body{
-font-family:sans-serif;
-text-align:center;
-background:#222;
-color:white;
-}
+<title>西西西洋棋 Online</title>
 
-#board{
-width:480px;
-height:480px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(8,1fr);
-}
+<link rel="stylesheet" href="style.css">
 
-.square{
-width:60px;
-height:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:40px;
-cursor:pointer;
-}
-
-.white{background:#eee;color:black}
-.black{background:#666}
-
-button{padding:10px;margin:5px}
-</style>
+<!-- Firebase -->
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -47,24 +22,88 @@ button{padding:10px;margin:5px}
 
 <div id="menu">
 
-<button onclick="createRoom()">創建房間</button>
+<h2>房間系統</h2>
 
-<input id="roomInput" placeholder="房間ID">
-
-<button onclick="joinRoom()">加入房間</button>
+<input id="roomInput" placeholder="輸入房間ID">
 
 <br><br>
 
-<button onclick="chooseColor('white')">我要白子</button>
-<button onclick="chooseColor('black')">我要黑子</button>
+<button id="createRoomBtn">創建房間</button>
 
-<p id="status"></p>
+<button id="joinRoomBtn">加入房間</button>
+
+<br><br>
+
+<button id="chooseWhiteBtn">選擇白棋</button>
+
+<button id="chooseBlackBtn">選擇黑棋</button>
+
+<br><br>
+
+<p id="roomStatus">尚未加入房間</p>
 
 </div>
 
+
+<hr>
+
+
+<div id="gameArea">
+
+<h2 id="turnDisplay">等待開始</h2>
+
 <div id="board"></div>
 
-<script src="game.js"></script>
+<div id="gameControls">
+
+<button id="restartGameBtn">重新開始</button>
+
+</div>
+
+</div>
+
+
+<hr>
+
+
+<div id="chatArea">
+
+<h2>聊天室</h2>
+
+<div id="chatMessages"></div>
+
+<input id="chatInput">
+
+<button id="sendChatBtn">送出</button>
+
+</div>
+
+
+
+<!-- 系統腳本 -->
+
+<script src="firebase-init.js"></script>
+
+<script src="room-system.js"></script>
+
+<script src="network-sync.js"></script>
+
+<script src="board-render.js"></script>
+
+<script src="drag-system.js"></script>
+
+<script src="chess-engine.js"></script>
+
+<script src="cheat-rules.js"></script>
+
+<script src="checkmate-system.js"></script>
+
+<script src="chat-system.js"></script>
+
+<script src="timer-system.js"></script>
+
+<script src="main.js"></script>
 
 </body>
+
 </html>
