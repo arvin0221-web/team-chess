@@ -14,14 +14,19 @@ database.ref("rooms/" + roomId).on("value", function(snapshot){
 var data = snapshot.val();
 
 if(data == null){
-
 return;
-
 }
 
+// 🔥【新增】同步回合（最關鍵）
+if(data.turn){
+currentTurn = data.turn;
+}
+
+// 原本保留
 currentBoardData = data.board;
 
-updateTurnDisplay(data.turn);
+// 🔥【修改】
+updateTurnDisplay(currentTurn);
 
 if(data.board != null){
 
@@ -32,8 +37,6 @@ updateBoardFromNetwork(data.board);
 });
 
 }
-
-
 
 // 更新回合顯示
 function updateTurnDisplay(turn){
