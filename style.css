@@ -1,9 +1,85 @@
-body {
-  font-family: Arial;
-  text-align: center;
+body{
+
+background:#202020;
+color:white;
+
+font-family:sans-serif;
+
+text-align:center;
+
 }
 
-#board {
-  width: 320px;
-  margin: auto;
+#board{
+
+width:480px;
+height:480px;
+
+margin:auto;
+
+display:grid;
+
+grid-template-columns:repeat(8,1fr);
+
+border:4px solid white;
+
+}
+
+.square{
+
+width:60px;
+height:60px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:40px;
+
+cursor:pointer;
+
+}
+
+.square.white{
+
+background:#eeeeee;
+color:black;
+
+}
+
+.square.black{
+
+background:#666666;
+
+}
+
+.square.highlight{
+
+outline:4px solid yellow;
+
+}
+
+#chatMessages{
+
+height:200px;
+
+overflow:auto;
+
+border:1px solid white;
+
+margin:10px;
+
+padding:5px;
+
+}
+
+button{
+
+font-size:16px;
+
+padding:10px;
+
+margin:5px;
+
 }
