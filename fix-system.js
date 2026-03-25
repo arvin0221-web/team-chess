@@ -117,12 +117,26 @@ if(!data) return;
 if(playerColor) return;
 
 // 自動分配（防止衝突）
-if(!data.white){
+if(data.white == playerId){
+
+if(playerColor && playerColor != "white"){
+alert("禁止切換陣營！");
+return;
+}
+
 playerColor = "white";
+}
 ref.child("white").set(true);
 }
-else if(!data.black){
+if(data.black == playerId){
+
+if(playerColor && playerColor != "black"){
+alert("禁止切換陣營！");
+return;
+}
+
 playerColor = "black";
+}
 ref.child("black").set(true);
 }
 
@@ -146,21 +160,6 @@ listenChat();
 
 
 
-// ====== 6️⃣ 監聽房間時自動啟動 ======
-
-var oldListenRoom = listenRoom;
-
-listenRoom = function(roomId){
-
-oldListenRoom(roomId);
-
-// 🔥 自動鎖顏色
-setTimeout(lockPlayerColor,500);
-
-// 🔥 啟用聊天
-setTimeout(enableChatSystem,500);
-
-};
 
 
 // ====== 7️⃣ 初始化提示 ======
@@ -187,7 +186,11 @@ return;
 }
 
 var ref = database.ref("rooms/" + currentRoomId + "/players/white");
-
+// ❌ 已選過就不能再選
+if(playerColor){
+alert("已選角色，不能更改！");
+return;
+}
 ref.once("value",function(snapshot){
 
 if(snapshot.exists()){
@@ -220,7 +223,11 @@ return;
 }
 
 var ref = database.ref("rooms/" + currentRoomId + "/players/black");
-
+// ❌ 已選過就不能再選
+if(playerColor){
+alert("已選角色，不能更改！");
+return;
+}
 ref.once("value",function(snapshot){
 
 if(snapshot.exists()){
@@ -271,11 +278,9 @@ listenRoom = function(roomId){
 
 oldListenRoom2(roomId);
 
-// 🔥 強制鎖身份
-setTimeout(enforcePlayerIdentity , 500);
-
-// 原本功能
-setTimeout(lockPlayerColor , 500);
-setTimeout(enableChatSystem , 500);
+// 🔥 立即啟動（不要延遲）
+enforcePlayerIdentity();
+lockPlayerColor();
+enableChatSystem();
 
 };
